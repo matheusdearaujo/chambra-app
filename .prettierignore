@@ -1,0 +1,8 @@
+android
+ios
+node_modules
+.expo
+.expo-shared
+.husky
+.vscode
+.git
