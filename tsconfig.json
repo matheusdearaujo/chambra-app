@@ -5,7 +5,16 @@
 		"module": "CommonJS",
 		"strict": true,
 		"paths": {
-			"_shared/*": ["./src/shared/*"]
+			"_pages/*": ["./src/pages/*"],
+			"_navigation": ["./src/navigation"],
+			"_navigation/*": ["./src/navigation/*"],
+            "_config/*": ["./src/config/*"],
+			"_shared/*": ["./src/shared/*"],
+            "_theme": ["./src/theme"],
+            "_theme/*": ["./src/theme/*"],
+            "_assets/*": ["./src/assets/*"],
+            "_redux": ["./src/redux"],
+            "_redux/*": ["./src/redux/*"],
 		}
 	}
 }
