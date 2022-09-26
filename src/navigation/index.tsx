@@ -4,8 +4,8 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import { MainStackParamsList } from "./types";
 
-import { HomeRoutes } from "_pages/home/navigation";
-import { ChatRoutes } from "_pages/chat/navigation";
+import { Begin } from "_pages/home/screens/Begin";
+import { Chat } from "_pages/chat/screens/Chat";
 
 const MainStack = createStackNavigator<MainStackParamsList>();
 
@@ -13,8 +13,8 @@ export const AppRoutes: React.FC = () => {
 	return (
 		<NavigationContainer>
 			<MainStack.Navigator screenOptions={{ header: () => null }}>
-				<MainStack.Screen name="HomeRoutes" component={HomeRoutes} />
-				<MainStack.Screen name="ChatRoutes" component={ChatRoutes} />
+				<MainStack.Screen name="Begin" component={Begin} />
+				<MainStack.Screen name="Chat" component={Chat} />
 			</MainStack.Navigator>
 		</NavigationContainer>
 	);

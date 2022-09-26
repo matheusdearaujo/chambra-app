@@ -2,7 +2,9 @@ import { Colors } from "react-native-paper";
 import { ColorsProps } from "_theme/props/colorProps";
 import hexToRgba from "_theme/utils/hexToRgba";
 
-//PRIMARY
+const chatBackground = "#f5f3f3";
+const chambraColor = "#194280";
+
 const primary = "#6C5CE7";
 const primary100 = "#E4DFFD";
 const primary200 = "#C8BFFC";
@@ -21,10 +23,8 @@ const primaryTransparent500: string = hexToRgba(primary500, "0.40");
 const primaryTransparent600: string = hexToRgba(primary500, "0.48");
 const gradientPrimary: string[] = [primary, primary600, primary700];
 
-//SECONDARY(ACCENT)
 const accent = "#4430e0";
 
-//SUCCESS
 const success = "#209F4A";
 const success100 = "#DAFBD5";
 const success200 = "#B0F8AC";
@@ -42,7 +42,6 @@ const successTransparent400: string = hexToRgba(success500, "0.32");
 const successTransparent500: string = hexToRgba(success500, "0.40");
 const successTransparent600: string = hexToRgba(success500, "0.48");
 
-//INFO
 const info = "#37B6E8";
 const info100 = "#D7FDFD";
 const info200 = "#AFF6FC";
@@ -95,6 +94,8 @@ const errorTransparent500: string = hexToRgba(error500, "0.40");
 const errorTransparent600: string = hexToRgba(error500, "0.48");
 
 export const customColors = {
+	chambraColor,
+	chatBackground,
 	primary,
 	primary100,
 	primary200,

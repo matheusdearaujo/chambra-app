@@ -1,34 +1,63 @@
-import React from "react";
-import { getDatabase, ref, set } from "firebase/database";
-import { Text, View } from "react-native";
+import React, { useState } from "react";
+import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import { useRoute } from "@react-navigation/native";
 import { MainStackRouteProps } from "_navigation/types";
+
+import { ref, set, child, push } from "firebase/database";
+import { db } from "_config/firebase";
+
 import { getTime } from "_shared/utils/getTime";
 
+import {
+	ChatContainer,
+	ChatContent,
+	FormContent,
+	InputChat,
+	InputMessage,
+	ButtonsChat,
+} from "./styles";
+
 export const Chat: React.FC = () => {
-	const route = useRoute<MainStackRouteProps<"ChatRoutes">>();
+	const [message, setMessage] = useState<string>("");
 
-	const sendMessage = (value: string) => {
-		const message = value
-			.replace(/&/g, "&amp;")
-			.replace(/</g, "&lt;")
-			.replace(/>/g, "&gt;")
-			.replace(/"/g, "&quot;")
-			.replace(/'/g, "&#039;");
+	const route = useRoute<MainStackRouteProps<"Chat">>();
 
-		const db = getDatabase();
+	const { username, color } = route.params;
 
-		set(ref(db, "messages"), {
-			name: route.params.username,
-			color: route.params.color,
+	const sendMessage = () => {
+		const key = push(child(ref(db), "messages")).key;
+
+		set(ref(db, `messages/${key}`), {
+			name: username,
+			color: color,
 			message: message,
 			time: getTime(),
 		});
+
+		setMessage("");
 	};
 
 	return (
-		<View>
-			<Text>Chat</Text>
-		</View>
+		<>
+			<ChatContainer>
+				<ChatContent></ChatContent>
+			</ChatContainer>
+			<FormContent>
+				<InputChat>
+					<ButtonsChat>
+						<MaterialIcons name="emoji-emotions" size={26} color="white" />
+					</ButtonsChat>
+					<InputMessage
+						multiline
+						onChangeText={message => setMessage(message)}
+						value={message}
+						placeholder="Digite sua mensagem aqui."
+					/>
+					<ButtonsChat onPress={sendMessage} disabled={!message}>
+						<FontAwesome name="send" size={24} color="white" />
+					</ButtonsChat>
+				</InputChat>
+			</FormContent>
+		</>
 	);
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { InputNameUserValidation } from "_shared/components";
 import { useNavigation } from "@react-navigation/native";
 import { MainStackNavigationProps } from "_navigation/types";
@@ -18,17 +18,17 @@ export const Begin: React.FC = () => {
 		resolver: yupResolver(schema),
 	});
 
-	const navigation = useNavigation<MainStackNavigationProps<"ChatRoutes">>();
+	const navigation = useNavigation<MainStackNavigationProps<"Begin">>();
 
-	const onSubmit = (data: BeginForm) => {
+	const onSubmit = useCallback((data: BeginForm) => {
 		const getColors = () =>
 			"#" + (Math.random() * 0xfffff * 1000000).toString(16).slice(0, 6);
 
-		navigation.navigate("ChatRoutes", {
+		navigation.navigate("Chat", {
 			username: data.username,
 			color: getColors(),
 		});
-	};
+	}, []);
 
 	return (
 		<BeginContainer>

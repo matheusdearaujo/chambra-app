@@ -1,5 +1,4 @@
 import { initializeApp } from "firebase/app";
-
 import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
@@ -12,6 +11,6 @@ const firebaseConfig = {
 	appId: "1:894331302194:web:24069cdc304fccab49a72b",
 };
 
-const initFirebase = initializeApp(firebaseConfig);
+const database = initializeApp(firebaseConfig);
 
-getDatabase(initFirebase);
+export const db = getDatabase(database);

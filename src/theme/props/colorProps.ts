@@ -5,6 +5,8 @@ import { Theme as PaperTheme } from "react-native-paper/lib/typescript/types";
 export type ColorsProps = NavigationTheme["colors"] &
 	PaperTheme["colors"] &
 	typeof Colors & {
+		chatBackground: string;
+		chambraColor: string;
 		primary: string;
 		primary100: string;
 		primary200: string;

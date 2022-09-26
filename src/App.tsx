@@ -1,9 +1,11 @@
 import React from "react";
-import { Providers } from "./Providers";
-import { AppRoutes } from "./navigation";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
+
+import { Providers } from "./Providers";
+import { AppRoutes } from "./navigation";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+
 import { setLocale as yupSetLocale } from "yup";
 
 import {
@@ -21,7 +23,6 @@ const customFonts = {
 };
 
 import messages from "./config/messages";
-
 yupSetLocale(messages);
 
 export const App: React.FC = () => {

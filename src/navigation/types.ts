@@ -2,8 +2,8 @@ import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp, StackScreenProps } from "@react-navigation/stack";
 
 export type MainStackParamsList = {
-	HomeRoutes: undefined;
-	ChatRoutes: {
+	Begin: undefined;
+	Chat: {
 		username: string;
 		color: string;
 	};
