@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import { useRoute } from "@react-navigation/native";
 import { MainStackRouteProps } from "_navigation/types";
 
-import { ref, set, child, push } from "firebase/database";
+import { ref, set, child, push, onValue } from "firebase/database";
 import { db } from "_config/firebase";
 
 import { getTime } from "_shared/utils/getTime";
+import { BalloonMessage } from "_pages/chat/components/BalloonMessage";
 
 import {
 	ChatContainer,
@@ -19,18 +20,34 @@ import {
 
 export const Chat: React.FC = () => {
 	const [message, setMessage] = useState<string>("");
+	const [allMessages, setAllMessages] = useState<any>({});
 
-	const route = useRoute<MainStackRouteProps<"Chat">>();
+	const messagesKeys = Object.keys(allMessages);
 
-	const { username, color } = route.params;
+	useEffect(() => {
+		onValue(ref(db, "messages"), snapshot => {
+			const data = snapshot.val() || {};
+
+			setAllMessages({ ...data });
+		});
+	}, []);
+
+	const { username, color } = useRoute<MainStackRouteProps<"Chat">>().params;
 
 	const sendMessage = () => {
 		const key = push(child(ref(db), "messages")).key;
 
+		const msg = message
+			.replace(/&/g, "&amp;")
+			.replace(/</g, "&lt;")
+			.replace(/>/g, "&gt;")
+			.replace(/"/g, "&quot;")
+			.replace(/'/g, "&#039;");
+
 		set(ref(db, `messages/${key}`), {
 			name: username,
 			color: color,
-			message: message,
+			message: msg,
 			time: getTime(),
 		});
 
@@ -40,7 +57,15 @@ export const Chat: React.FC = () => {
 	return (
 		<>
 			<ChatContainer>
-				<ChatContent></ChatContent>
+				<ChatContent>
+					{messagesKeys.map((item: any) => (
+						<BalloonMessage
+							key={item}
+							messageItens={allMessages[item]}
+							username={username}
+						/>
+					))}
+				</ChatContent>
 			</ChatContainer>
 			<FormContent>
 				<InputChat>
